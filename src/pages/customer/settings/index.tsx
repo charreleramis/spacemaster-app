@@ -78,7 +78,6 @@ export default function Settings() {
                                             className="customer-settings-input"
                                             placeholder="you@example.com"
                                         />
-                                        <p className="text-xs text-gray-400 mt-1">Email cannot be changed</p>
                                     </div>
                                 </div>
                             </div>

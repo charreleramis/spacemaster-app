@@ -6,6 +6,7 @@ import SignUp from './pages/sign-up';
 import CustomerLayout from './pages/customer';
 import Dashboard from './pages/customer/dashboard';
 import Service from './pages/customer/service';
+import ServiceDetail from './pages/customer/service/detail';
 import Subscription from './pages/customer/subscription';
 import Support from './pages/customer/support';
 import Settings from './pages/customer/settings';
@@ -35,6 +36,7 @@ function AppContent() {
 					<Route index element={<Navigate to="/customer/dashboard" replace />} />
 					<Route path="dashboard" element={<Dashboard />} />
 					<Route path="service" element={<Service />} />
+					<Route path="service/:id" element={<ServiceDetail />} />
 					<Route path="subscription" element={<Subscription />} />
 					<Route path="support" element={<Support />} />
 					<Route path="settings" element={<Settings />} />

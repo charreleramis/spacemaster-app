@@ -1,10 +1,19 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 
 export default function LenisScroll() {
+    const location = useLocation();
+    const isCustomerPage = location.pathname.startsWith('/customer');
+
     useEffect(() => {
+        // Disable Lenis on customer pages to allow native scrolling
+        if (isCustomerPage) {
+            return;
+        }
+
         const lenis = new Lenis({
             duration: 1.2,
             smoothWheel: true,
@@ -23,7 +32,7 @@ export default function LenisScroll() {
         return () => {
             lenis.destroy();
         };
-    }, []);
+    }, [isCustomerPage]);
 
     return null;
 }
