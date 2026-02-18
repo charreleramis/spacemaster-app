@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Calendar, Clock, Package, FileText } from 'lucide-react';
+import { ArrowLeft, Calendar, DollarSign, Package, FileText } from 'lucide-react';
 import { useService } from './method';
 import { GhostButton } from '../../../components/Buttons';
 import '../style.scss';
@@ -12,6 +12,7 @@ export default function ServiceDetail() {
         getStatusColor,
         getServiceTypeLabel,
         formatDate,
+        formatAmount,
     } = useService();
 
     const service = id ? getServiceById(id) : undefined;
@@ -99,11 +100,11 @@ export default function ServiceDetail() {
 
                             <div className="customer-service-detail-info-item">
                                 <div className="customer-service-detail-info-label">
-                                    <Clock className="size-4" />
-                                    Last Updated
+                                    <DollarSign className="size-4" />
+                                    Amount
                                 </div>
                                 <div className="customer-service-detail-info-value">
-                                    {formatDateTime(service.updatedDate)}
+                                    {formatAmount(service.amount)}
                                 </div>
                             </div>
                         </div>

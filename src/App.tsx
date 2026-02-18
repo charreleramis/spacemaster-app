@@ -7,9 +7,13 @@ import CustomerLayout from './pages/customer';
 import Dashboard from './pages/customer/dashboard';
 import Service from './pages/customer/service';
 import ServiceDetail from './pages/customer/service/detail';
-import Subscription from './pages/customer/subscription';
+import CreateOrder from './pages/customer/service/create';
+import Invoice from './pages/customer/subscription';
 import Support from './pages/customer/support';
 import Settings from './pages/customer/settings';
+import AdminLayout from './pages/admin';
+import AdminDashboard from './pages/admin/dashboard';
+import AdminOrders from './pages/admin/orders';
 import NotFound from './pages/404';
 import SoftBackdrop from './components/SoftBackdrop';
 import Footer from './components/Footer';
@@ -17,7 +21,7 @@ import LenisScroll from './components/lenis';
 
 function AppContent() {
 	const location = useLocation();
-	const hideNavbar = location.pathname === '/signin' || location.pathname === '/signup' || location.pathname.startsWith('/customer');
+	const hideNavbar = location.pathname === '/signin' || location.pathname === '/signup' || location.pathname.startsWith('/customer') || location.pathname.startsWith('/admin');
 
 	return (
 		<>
@@ -37,10 +41,16 @@ function AppContent() {
 					<Route index element={<Navigate to="/customer/dashboard" replace />} />
 					<Route path="dashboard" element={<Dashboard />} />
 					<Route path="service" element={<Service />} />
+					<Route path="service/create" element={<CreateOrder />} />
 					<Route path="service/:id" element={<ServiceDetail />} />
-					<Route path="subscription" element={<Subscription />} />
+					<Route path="subscription" element={<Invoice />} />
 					<Route path="support" element={<Support />} />
 					<Route path="settings" element={<Settings />} />
+				</Route>
+				<Route path="/admin" element={<AdminLayout />}>
+					<Route index element={<Navigate to="/admin/dashboard" replace />} />
+					<Route path="dashboard" element={<AdminDashboard />} />
+					<Route path="orders" element={<AdminOrders />} />
 				</Route>
 				<Route path="*" element={<NotFound />} />
 			</Routes>

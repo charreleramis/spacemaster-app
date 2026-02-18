@@ -1,17 +1,14 @@
 import { Outlet, Link } from 'react-router-dom';
-import { LayoutDashboard, Briefcase, CreditCard, Headphones, Settings, LogOut } from 'lucide-react';
-import { useCustomer } from './method';
-import './style.scss';
+import { LayoutDashboard, Briefcase, LogOut } from 'lucide-react';
+import { useAdmin } from './method';
+import '../customer/style.scss';
 
-export default function CustomerLayout() {
-    const { menuItems, activeMenu, handleMenuClick } = useCustomer();
+export default function AdminLayout() {
+    const { menuItems, activeMenu, handleMenuClick } = useAdmin();
 
     const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
         LayoutDashboard,
         Briefcase,
-        CreditCard,
-        Headphones,
-        Settings,
     };
 
     return (
@@ -19,7 +16,7 @@ export default function CustomerLayout() {
             {/* Sidebar */}
             <aside className="customer-sidebar">
                 <div className="customer-sidebar-header">
-                    <h1 className="customer-sidebar-title">Customer Portal</h1>
+                    <h1 className="customer-sidebar-title">Admin Portal</h1>
                 </div>
                 <nav className="customer-sidebar-nav">
                     <ul className="customer-nav-list">
@@ -60,3 +57,4 @@ export default function CustomerLayout() {
         </div>
     );
 }
+

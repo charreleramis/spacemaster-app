@@ -1,71 +1,58 @@
-import { Check } from 'lucide-react';
-import { PrimaryButton, GhostButton } from '../../../components/Buttons';
-import { plansData } from '../../../assets/dummy-data';
+import { useInvoice } from './method';
 import '../style.scss';
-import { motion } from 'framer-motion';
 
-export default function Subscription() {
+export default function Invoice() {
+    const {
+        invoices,
+        getStatusColor,
+        formatDate,
+        formatAmount,
+    } = useInvoice();
+
     return (
         <>
-            <h1 className="customer-page-title">Subscription</h1>
+            <h1 className="customer-page-title">Invoice</h1>
             <p className="customer-page-description">
-                View and manage your subscription plans and billing information.
+                View and manage your invoices and billing information.
             </p>
 
-            <div className="customer-subscription-grid">
-                {plansData.map((plan, i) => (
-                    <motion.div
-                        key={plan.id}
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ duration: 0.5, delay: i * 0.1 }}
-                        className={`customer-subscription-card ${
-                            plan.popular
-                                ? 'customer-subscription-card-popular'
-                                : ''
-                        }`}
-                    >
-                        {plan.popular && (
-                            <p className="customer-subscription-badge">
-                                Most popular
-                            </p>
+            <div className="customer-support-table-container">
+                <table className="customer-support-table">
+                    <thead>
+                        <tr>
+                            <th>Invoice Number</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Issue Date</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {invoices.length === 0 ? (
+                            <tr>
+                                <td colSpan={6} className="customer-support-empty">
+                                    No invoices found.
+                                </td>
+                            </tr>
+                        ) : (
+                            invoices.map((invoice) => (
+                                <tr key={invoice.id}>
+                                    <td className="customer-support-subject">{invoice.invoiceNumber}</td>
+                                    <td className="customer-support-subject">{invoice.description}</td>
+                                    <td className="customer-support-date">{formatAmount(invoice.amount)}</td>
+                                    <td className="customer-support-date">{formatDate(invoice.issueDate)}</td>
+                                    <td className="customer-support-date">{formatDate(invoice.dueDate)}</td>
+                                    <td>
+                                        <span className={`customer-support-badge ${getStatusColor(invoice.status)}`}>
+                                            {invoice.status.charAt(0).toUpperCase() + invoice.status.slice(1)}
+                                        </span>
+                                    </td>
+                                </tr>
+                            ))
                         )}
-
-                        <div className="mb-6">
-                            <p className="customer-subscription-plan-name">{plan.name}</p>
-                            <div className="customer-subscription-price-container">
-                                <span className="customer-subscription-price">{plan.price}</span>
-                                <span className="customer-subscription-credits">
-                                    / {plan.credits}
-                                </span>
-                            </div>
-                            <p className="customer-subscription-desc">
-                                {plan.desc}
-                            </p>
-                        </div>
-
-                        <ul className="customer-subscription-features">
-                            {plan.features.map((feat, idx) => (
-                                <li key={idx} className="customer-subscription-feature">
-                                    <Check className="customer-subscription-feature-icon" />
-                                    {feat}
-                                </li>
-                            ))}
-                        </ul>
-
-                        <div>
-                            {plan.popular ? (
-                                <PrimaryButton className="w-full">
-                                    Get started
-                                </PrimaryButton>
-                            ) : (
-                                <GhostButton className="w-full justify-center">
-                                    Get started
-                                </GhostButton>
-                            )}
-                        </div>
-                    </motion.div>
-                ))}
+                    </tbody>
+                </table>
             </div>
         </>
     );

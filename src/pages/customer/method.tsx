@@ -8,7 +8,7 @@ export const useCustomer = () => {
     const menuItems = [
         { id: 'dashboard', label: 'Dashboard', path: '/customer/dashboard', icon: 'LayoutDashboard' },
         { id: 'service', label: 'Service', path: '/customer/service', icon: 'Briefcase' },
-        { id: 'subscription', label: 'Subscription', path: '/customer/subscription', icon: 'CreditCard' },
+        { id: 'subscription', label: 'Invoice', path: '/customer/subscription', icon: 'CreditCard' },
         { id: 'support', label: 'Support', path: '/customer/support', icon: 'Headphones' },
         { id: 'settings', label: 'Settings', path: '/customer/settings', icon: 'Settings' },
     ];

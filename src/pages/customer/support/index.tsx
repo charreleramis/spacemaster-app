@@ -1,6 +1,7 @@
-import { Plus, X, Image as ImageIcon, Trash2 } from 'lucide-react';
+import { Plus, Image as ImageIcon, Trash2 } from 'lucide-react';
 import { useSupport } from './method';
 import { PrimaryButton } from '../../../components/Buttons';
+import { Modal } from '../../../components/Modal';
 import '../style.scss';
 
 export default function Support() {
@@ -79,21 +80,8 @@ export default function Support() {
             </div>
 
             {/* Modal */}
-            {isModalOpen && (
-                <div className="customer-support-modal-overlay" onClick={closeModal}>
-                    <div className="customer-support-modal" onClick={(e) => e.stopPropagation()}>
-                        <div className="customer-support-modal-header">
-                            <h2 className="customer-support-modal-title">Create New Ticket</h2>
-                            <button
-                                onClick={closeModal}
-                                className="customer-support-modal-close"
-                                aria-label="Close modal"
-                            >
-                                <X className="size-5" />
-                            </button>
-                        </div>
-
-                        <form onSubmit={handleSubmit} className="customer-support-modal-form">
+            <Modal isOpen={isModalOpen} onClose={closeModal} title="Create New Ticket">
+                <form onSubmit={handleSubmit} className="customer-support-modal-form">
                             <div className="customer-support-modal-field">
                                 <label htmlFor="subject" className="customer-support-modal-label">
                                     Subject
@@ -172,9 +160,7 @@ export default function Support() {
                                 </PrimaryButton>
                             </div>
                         </form>
-                    </div>
-                </div>
-            )}
+            </Modal>
         </>
     );
 }

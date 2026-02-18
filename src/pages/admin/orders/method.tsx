@@ -1,9 +1,9 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 
 export type ServiceType = 'design' | 'website' | 'application';
-export type ServiceStatus = 'pending' | 'delivered' | 'hold';
+export type ServiceStatus = 'pending' | 'approved' | 'delivered' | 'hold';
 
-export interface Service {
+export interface Order {
     id: string;
     type: ServiceType;
     name: string;
@@ -11,10 +11,11 @@ export interface Service {
     status: ServiceStatus;
     requestedDate: string;
     amount: number;
+    numberOfDesigns?: number;
 }
 
-export const useService = () => {
-    const [services, setServices] = useState<Service[]>([
+export const useAdminOrders = () => {
+    const [orders, setOrders] = useState<Order[]>([
         {
             id: '1',
             type: 'design',
@@ -22,14 +23,15 @@ export const useService = () => {
             description: 'Brand identity design package',
             status: 'pending',
             requestedDate: '2024-01-15T10:30:00Z',
-            amount: 500,
+            amount: 400,
+            numberOfDesigns: 8,
         },
         {
             id: '2',
             type: 'website',
             name: 'E-commerce Website',
             description: 'Full-stack e-commerce platform',
-            status: 'delivered',
+            status: 'approved',
             requestedDate: '2024-01-10T09:15:00Z',
             amount: 5000,
         },
@@ -38,7 +40,7 @@ export const useService = () => {
             type: 'application',
             name: 'Mobile App',
             description: 'iOS and Android mobile application',
-            status: 'hold',
+            status: 'pending',
             requestedDate: '2024-01-12T11:20:00Z',
             amount: 8000,
         },
@@ -47,9 +49,10 @@ export const useService = () => {
             type: 'design',
             name: 'UI/UX Design',
             description: 'User interface and experience design',
-            status: 'delivered',
+            status: 'approved',
             requestedDate: '2024-01-08T08:00:00Z',
-            amount: 1200,
+            amount: 700,
+            numberOfDesigns: 15,
         },
         {
             id: '5',
@@ -71,25 +74,12 @@ export const useService = () => {
         },
     ]);
 
-    // Calculate counts for each service type
-    const serviceCounts = useMemo(() => {
-        const counts = {
-            design: 0,
-            website: 0,
-            application: 0,
-        };
-
-        services.forEach((service) => {
-            counts[service.type]++;
-        });
-
-        return counts;
-    }, [services]);
-
     const getStatusColor = (status: ServiceStatus) => {
         switch (status) {
             case 'pending':
                 return 'text-yellow-600 bg-yellow-100';
+            case 'approved':
+                return 'text-blue-600 bg-blue-100';
             case 'delivered':
                 return 'text-green-600 bg-green-100';
             case 'hold':
@@ -128,17 +118,21 @@ export const useService = () => {
         }).format(amount);
     };
 
-    const getServiceById = (id: string): Service | undefined => {
-        return services.find((service) => service.id === id);
+    const updateOrderStatus = (id: string, newStatus: ServiceStatus) => {
+        setOrders((prevOrders) =>
+            prevOrders.map((order) =>
+                order.id === id ? { ...order, status: newStatus } : order
+            )
+        );
     };
 
     return {
-        services,
-        serviceCounts,
+        orders,
         getStatusColor,
         getServiceTypeLabel,
         formatDate,
         formatAmount,
-        getServiceById,
+        updateOrderStatus,
     };
 };
+

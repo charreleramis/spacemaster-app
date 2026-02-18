@@ -95,28 +95,28 @@ export const useSupport = () => {
     const getStatusColor = (status: Ticket['status']) => {
         switch (status) {
             case 'open':
-                return 'text-green-400 bg-green-400/20';
+                return 'text-green-600 bg-green-100';
             case 'pending':
-                return 'text-yellow-400 bg-yellow-400/20';
+                return 'text-yellow-600 bg-yellow-100';
             case 'resolved':
-                return 'text-blue-400 bg-blue-400/20';
+                return 'text-blue-600 bg-blue-100';
             case 'closed':
-                return 'text-gray-400 bg-gray-400/20';
+                return 'text-gray-600 bg-gray-100';
             default:
-                return 'text-gray-400 bg-gray-400/20';
+                return 'text-gray-600 bg-gray-100';
         }
     };
 
     const getPriorityColor = (priority: Ticket['priority']) => {
         switch (priority) {
             case 'high':
-                return 'text-red-400 bg-red-400/20';
+                return 'text-red-600 bg-red-100';
             case 'medium':
-                return 'text-yellow-400 bg-yellow-400/20';
+                return 'text-yellow-600 bg-yellow-100';
             case 'low':
-                return 'text-green-400 bg-green-400/20';
+                return 'text-green-600 bg-green-100';
             default:
-                return 'text-gray-400 bg-gray-400/20';
+                return 'text-gray-600 bg-gray-100';
         }
     };
 

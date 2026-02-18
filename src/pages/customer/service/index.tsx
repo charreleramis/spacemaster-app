@@ -1,66 +1,32 @@
-import { Palette, Globe, Smartphone, Eye } from 'lucide-react';
+import { Eye, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useService } from './method';
-import { GhostButton } from '../../../components/Buttons';
+import { GhostButton, PrimaryButton } from '../../../components/Buttons';
 import '../style.scss';
 
 export default function Service() {
     const navigate = useNavigate();
     const {
         services,
-        serviceCounts,
         getStatusColor,
         getServiceTypeLabel,
         formatDate,
+        formatAmount,
     } = useService();
-
-    const countCards = [
-        {
-            type: 'design' as const,
-            label: 'Design',
-            count: serviceCounts.design,
-            icon: Palette,
-            color: 'from-green-500 to-green-600',
-        },
-        {
-            type: 'website' as const,
-            label: 'Website',
-            count: serviceCounts.website,
-            icon: Globe,
-            color: 'from-blue-500 to-blue-600',
-        },
-        {
-            type: 'application' as const,
-            label: 'Application',
-            count: serviceCounts.application,
-            icon: Smartphone,
-            color: 'from-green-500 to-green-600',
-        },
-    ];
 
     return (
         <>
-            <h1 className="customer-page-title">Service</h1>
-            <p className="customer-page-description">
-                Manage your services and view service details.
-            </p>
-
-            {/* Service Count Cards */}
-            <div className="customer-service-cards">
-                {countCards.map((card) => {
-                    const Icon = card.icon;
-                    return (
-                        <div key={card.type} className="customer-service-card">
-                            <div className={`customer-service-card-icon bg-gradient-to-br ${card.color}`}>
-                                <Icon className="size-6" />
-                            </div>
-                            <div className="customer-service-card-content">
-                                <p className="customer-service-card-label">{card.label}</p>
-                                <p className="customer-service-card-count">{card.count}</p>
-                            </div>
-                        </div>
-                    );
-                })}
+            <div className="customer-support-header">
+                <div>
+                    <h1 className="customer-page-title">Service</h1>
+                    <p className="customer-page-description">
+                        Manage your services and view service details.
+                    </p>
+                </div>
+                <PrimaryButton onClick={() => navigate('/customer/service/create')} className="customer-support-create-button">
+                    <Plus className="size-4" />
+                    Create Order
+                </PrimaryButton>
             </div>
 
             {/* Services Table */}
@@ -73,7 +39,7 @@ export default function Service() {
                             <th>Description</th>
                             <th>Status</th>
                             <th>Requested Date</th>
-                            <th>Last Updated</th>
+                            <th>Amount</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -100,7 +66,7 @@ export default function Service() {
                                         </span>
                                     </td>
                                     <td className="customer-service-date">{formatDate(service.requestedDate)}</td>
-                                    <td className="customer-service-date">{formatDate(service.updatedDate)}</td>
+                                    <td className="customer-service-date">{formatAmount(service.amount)}</td>
                                     <td>
                                         <GhostButton
                                             onClick={() => navigate(`/customer/service/${service.id}`)}
