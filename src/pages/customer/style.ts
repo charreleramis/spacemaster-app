@@ -9,7 +9,7 @@ export const customerStyles = {
     navList: "space-y-2",
     navItem: "block",
     navLink: "flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-colors",
-    navLinkActive: "flex items-center gap-3 px-4 py-3 rounded-xl text-white bg-indigo-500/20 border border-indigo-500/30",
+    navLinkActive: "flex items-center gap-3 px-4 py-3 rounded-xl text-white bg-green-500/20 border border-green-500/30",
     navIcon: "size-5",
     navText: "font-medium",
     mainContent: "flex-1 overflow-y-auto",
@@ -19,9 +19,9 @@ export const customerStyles = {
     // Subscription page styles
     subscriptionGrid: "grid md:grid-cols-3 gap-6 max-w-5xl",
     subscriptionCard: "relative p-6 rounded-xl border backdrop-blur",
-    subscriptionCardPopular: "border-indigo-500/50 bg-indigo-900/30",
-    subscriptionCardNormal: "border-white/8 bg-indigo-950/30",
-    subscriptionBadge: "absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-indigo-600 rounded-md text-xs text-white",
+    subscriptionCardPopular: "border-green-500/50 bg-green-900/30",
+    subscriptionCardNormal: "border-white/8 bg-green-950/30",
+    subscriptionBadge: "absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-green-600 rounded-md text-xs text-white",
     subscriptionPlanName: "text-lg font-semibold text-white mb-2",
     subscriptionPriceContainer: "flex items-end gap-3 mb-2",
     subscriptionPrice: "text-3xl font-extrabold text-white",
@@ -29,5 +29,5 @@ export const customerStyles = {
     subscriptionDesc: "text-sm text-gray-300 mb-6",
     subscriptionFeatures: "space-y-3 mb-6",
     subscriptionFeature: "flex items-center gap-3 text-sm text-gray-300",
-    subscriptionFeatureIcon: "w-4 h-4 text-indigo-400",
+    subscriptionFeatureIcon: "w-4 h-4 text-green-400",
 };

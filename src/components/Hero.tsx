@@ -62,7 +62,7 @@ export default function Hero() {
                                 transition={{ type: "spring", stiffness: 250, damping: 70, mass: 1, delay: 0.1 }}
                             >
                                 We design & build <br />
-                                <span className="bg-clip-text text-transparent bg-linear-to-r from-indigo-300 to-indigo-400">
+                                <span className="bg-clip-text text-transparent bg-linear-to-r from-green-300 to-green-400">
                                     high-impact digital experiences
                                 </span>
                             </motion.h1>

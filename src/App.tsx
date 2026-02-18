@@ -10,6 +10,7 @@ import ServiceDetail from './pages/customer/service/detail';
 import Subscription from './pages/customer/subscription';
 import Support from './pages/customer/support';
 import Settings from './pages/customer/settings';
+import NotFound from './pages/404';
 import SoftBackdrop from './components/SoftBackdrop';
 import Footer from './components/Footer';
 import LenisScroll from './components/lenis';
@@ -41,6 +42,7 @@ function AppContent() {
 					<Route path="support" element={<Support />} />
 					<Route path="settings" element={<Settings />} />
 				</Route>
+				<Route path="*" element={<NotFound />} />
 			</Routes>
 		</>
 	);

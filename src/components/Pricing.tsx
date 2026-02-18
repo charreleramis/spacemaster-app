@@ -36,12 +36,12 @@ export default function Pricing() {
                                 }
                             }}
                             className={`relative p-6 rounded-xl border backdrop-blur ${plan.popular
-                                ? 'border-indigo-500/50 bg-indigo-900/30'
-                                : 'border-white/8 bg-indigo-950/30'
+                                ? 'border-green-500/50 bg-green-900/30'
+                                : 'border-white/8 bg-green-950/30'
                                 }`}
                         >
                             {plan.popular && (
-                                <p className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-indigo-600 rounded-md text-xs">
+                                <p className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-green-600 rounded-md text-xs">
                                     Most popular
                                 </p>
                             )}
@@ -65,7 +65,7 @@ export default function Pricing() {
                                         key={i}
                                         className="flex items-center gap-3 text-sm text-gray-300"
                                     >
-                                        <Check className="w-4 h-4 text-indigo-400" />
+                                        <Check className="w-4 h-4 text-green-400" />
                                         {feat}
                                     </li>
                                 ))}

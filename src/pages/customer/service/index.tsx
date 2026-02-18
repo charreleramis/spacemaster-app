@@ -20,7 +20,7 @@ export default function Service() {
             label: 'Design',
             count: serviceCounts.design,
             icon: Palette,
-            color: 'from-purple-500 to-purple-600',
+            color: 'from-green-500 to-green-600',
         },
         {
             type: 'website' as const,
@@ -34,7 +34,7 @@ export default function Service() {
             label: 'Application',
             count: serviceCounts.application,
             icon: Smartphone,
-            color: 'from-indigo-500 to-indigo-600',
+            color: 'from-green-500 to-green-600',
         },
     ];
 
