@@ -1,5 +1,5 @@
-import { Outlet, Link, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Briefcase, CreditCard, Headphones, Settings, LogOut, Mail, Globe, BarChart3, Shield, ChevronDown, ChevronRight, Lock } from 'lucide-react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { LayoutDashboard, Briefcase, CreditCard, Headphones, Settings, LogOut, Mail, Globe, BarChart3, Shield, ChevronDown, ChevronRight, Lock, Image } from 'lucide-react';
 import { useState } from 'react';
 import { useCustomer } from './method';
 import { useAuth } from '../../contexts/AuthContext';
@@ -26,6 +26,7 @@ export default function CustomerLayout() {
         Globe,
         BarChart3,
         Shield,
+        Image,
     };
 
     const toggleSubMenu = (menuId: string) => {

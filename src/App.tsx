@@ -11,6 +11,7 @@ import Dashboard from './pages/customer/dashboard';
 import Service from './pages/customer/service';
 import ServiceDetail from './pages/customer/service/detail';
 import CreateOrder from './pages/customer/service/create';
+import Ads from './pages/customer/ads';
 import Invoice from './pages/customer/subscription';
 import Support from './pages/customer/support';
 import Settings from './pages/customer/settings';
@@ -58,6 +59,7 @@ function AppContent() {
 					<Route path="service" element={<Service />} />
 					<Route path="service/create" element={<CreateOrder />} />
 					<Route path="service/:id" element={<ServiceDetail />} />
+					<Route path="ads" element={<Ads />} />
 					<Route path="subscription" element={<Invoice />} />
 					<Route path="support" element={<Support />} />
 					<Route path="settings" element={<Settings />} />

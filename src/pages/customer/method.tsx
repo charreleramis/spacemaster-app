@@ -23,6 +23,7 @@ export const useCustomer = () => {
     const menuItems: MenuItem[] = [
         { id: 'dashboard', label: 'Dashboard', path: '/customer/dashboard', icon: 'LayoutDashboard' },
         { id: 'service', label: 'Service', path: '/customer/service', icon: 'Briefcase' },
+        { id: 'ads', label: 'Ads', path: '/customer/ads', icon: 'Image' },
         { id: 'subscription', label: 'Invoice', path: '/customer/subscription', icon: 'CreditCard' },
         { id: 'support', label: 'Support', path: '/customer/support', icon: 'Headphones' },
         { id: 'email-campaign', label: 'Email Campaign', path: '/customer/email-campaign', icon: 'Mail', disabled: true },

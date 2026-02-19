@@ -69,7 +69,7 @@ export default function CreateOrder() {
         const success = handleSubmit(e);
         if (success) {
             setTimeout(() => {
-                navigate('/customer/service');
+                navigate('/customer/dashboard');
             }, 2000);
         }
     };
