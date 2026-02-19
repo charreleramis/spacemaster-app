@@ -1,12 +1,19 @@
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Briefcase, CreditCard, Headphones, Settings, LogOut, Mail, Globe, BarChart3, Shield, ChevronDown, ChevronRight, Lock } from 'lucide-react';
 import { useState } from 'react';
 import { useCustomer } from './method';
+import { authApi } from '../../utils/api';
 import './style.scss';
 
 export default function CustomerLayout() {
     const { menuItems, activeMenu, handleMenuClick } = useCustomer();
     const [expandedMenus, setExpandedMenus] = useState<Set<string>>(new Set());
+    const navigate = useNavigate();
+
+    const handleSignOut = () => {
+        authApi.signOut();
+        navigate('/signin');
+    };
 
     const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
         LayoutDashboard,
@@ -120,13 +127,13 @@ export default function CustomerLayout() {
                     </ul>
                 </nav>
                 <div className="p-4 border-t border-black/10">
-                    <Link
-                        to="/"
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:text-gray-900 hover:bg-black/5 transition-colors"
+                    <button
+                        onClick={handleSignOut}
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:text-gray-900 hover:bg-black/5 transition-colors w-full text-left"
                     >
                         <LogOut className="size-5" />
                         <span className="font-medium">Sign Out</span>
-                    </Link>
+                    </button>
                 </div>
             </aside>
 

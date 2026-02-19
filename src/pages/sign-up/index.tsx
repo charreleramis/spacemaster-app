@@ -16,6 +16,8 @@ export default function SignUp() {
         password,
         setPassword,
         showPassword,
+        isLoading,
+        error,
         handleSubmit,
         togglePasswordVisibility,
     } = useSignUp();
@@ -137,9 +139,27 @@ export default function SignUp() {
                             </div>
                         </div>
 
+                        {/* Error message */}
+                        {error && (
+                            <div style={{
+                                padding: '0.75rem',
+                                backgroundColor: '#fee2e2',
+                                border: '1px solid #fecaca',
+                                borderRadius: '0.5rem',
+                                color: '#991b1b',
+                                fontSize: '0.875rem'
+                            }}>
+                                {error}
+                            </div>
+                        )}
+
                         {/* Submit button */}
-                        <PrimaryButton type="submit" className={signUpStyles.submitButton}>
-                            Create account
+                        <PrimaryButton 
+                            type="submit" 
+                            className={signUpStyles.submitButton}
+                            disabled={isLoading}
+                        >
+                            {isLoading ? 'Creating account...' : 'Create account'}
                         </PrimaryButton>
                     </form>
 

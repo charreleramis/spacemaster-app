@@ -1,88 +1,105 @@
-# Product Ad Design Request – [Your App/Service Name]
+# Spacemaster App
 
-**Quick, affordable, high-converting product ad creatives** for Facebook, Instagram, TikTok, Shopee, Lazada, Google, and more.
+A full-stack application with React frontend and Express.js backend.
 
-Business owners upload product photos + fill out a simple form → professional designers deliver eye-catching ads ready to boost sales.
+## Prerequisites
 
-Built for small businesses, online sellers, and entrepreneurs in the Philippines (and beyond).
+- Node.js (v18 or higher)
+- npm or yarn
 
-## ✨ Features
+## Project Structure
 
-- Super simple request form – no design skills needed
-- High-resolution product ad outputs (optimized for each platform)
-- Fast turnaround (normal: 24–48 hours | rush: same day possible)
-- Unlimited revisions until you're 100% happy (or revision packages)
-- Mobile-friendly form + file uploads
-- Supports multiple products per request
-- Brand color & style matching
-- Ready-to-post formats: square, stories, carousel, banners, etc.
+```
+spacemaster-app/
+├── server/          # Express.js backend API
+├── src/            # React frontend
+└── package.json    # Frontend dependencies
+```
 
-## 🎯 Who It's For
+## Quick Setup
 
-- Shopee/Lazada sellers
-- Facebook/Instagram shop owners
-- Small cafes, food businesses, boutiques
-- Service providers (beauty, fitness, events)
-- Anyone running product promos or flash sales
+### Install All Dependencies
 
-## How It Works (User Flow)
+```bash
+npm run install:all
+```
 
-1. Go to the request page
-2. Fill in your business/product details
-3. Upload clear product photos (front, side, lifestyle – the more the better!)
-4. Tell us your preferred vibe, message, CTA, and deadline
-5. Submit → get confirmation + estimated delivery time
-6. Receive first draft via email / dashboard / Messenger
-7. Request changes if needed
-8. Approve final files → ready to post and sell!
+This will install dependencies for both frontend and backend.
 
-## Request Form Fields (What We Ask For)
+## Running the Application
 
-| Field                          | Required? | Purpose / Why We Need It                              |
-|-------------------------------|-----------|--------------------------------------------------------|
-| Full Name                     | Yes       | Communication                                         |
-| Email / WhatsApp              | Yes       | Fast updates & file delivery                          |
-| Business / Brand Name         | Yes       | For text & branding                                   |
-| Product Name(s)               | Yes       | Main focus of the ad                                  |
-| Product Description / Features| Yes       | Helps write compelling copy                           |
-| Main Headline / Promo Message | Yes       | What grabs attention first                            |
-| Preferred Call-to-Action      | Yes       | Shop Now, Message Us, Order Now, etc.                 |
-| Platform(s) to use the ad     | Yes       | FB Feed, IG Stories, Shopee banner, etc.              |
-| Exact Dimensions / Format     | Yes       | 1080×1080, 1080×1920, carousel (how many?), etc.      |
-| Product Photos                | Yes       | The actual product – high-res best                    |
-| Logo (if any)                 | Optional  | Transparent PNG preferred                             |
-| Brand Colors / Color Scheme   | Optional  | Match your existing branding                          |
-| Desired Style / Mood          | Optional  | Minimalist, luxurious, fun, food-style, etc.          |
-| Target Audience               | Optional  | Helps choose visuals that convert                     |
-| Deadline                      | Yes       | When do you need the first draft?                     |
-| Additional Notes / References | Optional  | Links to ads you like, things to avoid, Bisaya text, etc. |
+You need to run both the backend server and frontend development server. You can do this in two ways:
 
-## Pricing (example – update to your actual rates)
+### Option 1: Using Two Terminal Windows (Recommended)
 
-- **Standard Single Ad** – ₱800–1,500  
-- **Carousel (3–5 slides)** – ₱1,800–3,000  
-- **Rush (same day / 12 hrs)** – +₱500–1,000  
-- **Unlimited Revisions Package** – +₱400–800  
-- Bulk / monthly packages available for regular clients
+**Terminal 1: Start Backend Server**
 
-*All prices include source file (.psd / .fig) + final PNG/JPG/WebP.*
+```bash
+npm run server
+```
 
-## Tech Stack (for developers / if open-source)
+Or for development with auto-reload:
+```bash
+npm run server:dev
+```
 
-- Frontend: [React / Next.js / Vue / whatever you use]
-- Form handling: [Formik / React Hook Form]
-- File uploads: [Cloudinary / Supabase Storage / AWS S3]
-- Backend: [Node.js / Laravel / Django / Firebase]
-- Designer dashboard: [custom admin or Trello-like board]
+The backend server will run on `http://localhost:5000`
 
-## Contact & Support
+**Terminal 2: Start Frontend Development Server**
 
-Questions? Rush orders?  
-📩 Email: support@yourapp.com  
-💬 WhatsApp: +63 xxx xxx xxxx  
-📱 Messenger: m.me/yourpage
+```bash
+npm run dev
+```
 
-Made with ❤️ for hardworking Pinoy entrepreneurs  
-Davao City, Philippines
+The frontend will run on `http://localhost:4200`
 
-Last updated: February 2026
+### Option 2: Manual Commands
+
+**Terminal 1: Backend**
+```bash
+cd server
+npm start
+```
+
+**Terminal 2: Frontend**
+```bash
+npm run dev
+```
+
+## Verify Everything is Working
+
+1. **Backend**: Open `http://localhost:5000/api/health` in your browser. You should see:
+   ```json
+   {"status":"OK","message":"Server is running"}
+   ```
+
+2. **Frontend**: Open `http://localhost:4200` in your browser. You should see the home page.
+
+3. **Test Sign Up**: Navigate to `/signup` and create an account.
+
+4. **Test Sign In**: Navigate to `/signin` and sign in with your credentials.
+
+## API Endpoints
+
+- **POST** `/api/auth/signup` - Create new user account
+  - Body: `{ name, phone, email, password }`
+  
+- **POST** `/api/auth/signin` - Sign in user
+  - Body: `{ email, password }`
+  
+- **GET** `/api/health` - Health check
+
+## Environment Variables
+
+The frontend uses Vite proxy to forward `/api` requests to the backend server at `http://localhost:5000`.
+
+If you need to change the API URL, create a `.env` file in the root directory:
+```
+VITE_API_URL=http://localhost:5000/api
+```
+
+## MongoDB
+
+The server connects to MongoDB Atlas using the connection string in `server/config/database.js`.
+
+The database name is set to `spacemaster` in the connection configuration.

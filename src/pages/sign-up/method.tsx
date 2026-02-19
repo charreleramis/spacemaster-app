@@ -1,6 +1,7 @@
 // Methods and logic for SignUp page
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { authApi } from '../../utils/api';
 
 export const useSignUp = () => {
     const [name, setName] = useState('');
@@ -8,14 +9,35 @@ export const useSignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Handle sign up logic here
-        console.log('Sign up:', { name, phone, email, password });
-        // For now, just navigate to sign in
-        // navigate('/signin');
+        setError(null);
+        setIsLoading(true);
+
+        try {
+            const response = await authApi.signUp({
+                name,
+                phone,
+                email,
+                password,
+            });
+
+            if (response.success) {
+                // Navigate to customer dashboard on success
+                navigate('/customer/dashboard');
+            } else {
+                setError(response.message || 'Sign up failed. Please try again.');
+            }
+        } catch (err) {
+            setError('An unexpected error occurred. Please try again.');
+            console.error('Sign up error:', err);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const togglePasswordVisibility = () => {
@@ -32,6 +54,8 @@ export const useSignUp = () => {
         password,
         setPassword,
         showPassword,
+        isLoading,
+        error,
         handleSubmit,
         togglePasswordVisibility,
         navigate,
