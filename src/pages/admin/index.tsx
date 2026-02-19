@@ -1,10 +1,18 @@
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Briefcase, LogOut } from 'lucide-react';
 import { useAdmin } from './method';
+import { useAuth } from '../../contexts/AuthContext';
 import '../customer/style.scss';
 
 export default function AdminLayout() {
     const { menuItems, activeMenu, handleMenuClick } = useAdmin();
+    const navigate = useNavigate();
+    const { logout } = useAuth();
+
+    const handleSignOut = () => {
+        logout();
+        navigate('/signin');
+    };
 
     const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
         LayoutDashboard,
@@ -38,13 +46,13 @@ export default function AdminLayout() {
                     </ul>
                 </nav>
                 <div className="p-4 border-t border-black/10">
-                    <Link
-                        to="/"
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:text-gray-900 hover:bg-black/5 transition-colors"
+                    <button
+                        onClick={handleSignOut}
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:text-gray-900 hover:bg-black/5 transition-colors w-full text-left"
                     >
                         <LogOut className="size-5" />
                         <span className="font-medium">Sign Out</span>
-                    </Link>
+                    </button>
                 </div>
             </aside>
 

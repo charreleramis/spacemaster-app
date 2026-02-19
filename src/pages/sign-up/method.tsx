@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authApi } from '../../utils/api';
+import { useAuth } from '../../contexts/AuthContext';
 
 export const useSignUp = () => {
     const [name, setName] = useState('');
@@ -12,6 +13,7 @@ export const useSignUp = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -26,9 +28,15 @@ export const useSignUp = () => {
                 password,
             });
 
-            if (response.success) {
-                // Navigate to customer dashboard on success
-                navigate('/customer/dashboard');
+            if (response.success && response.data) {
+                // Update auth context
+                login(response.data.user, response.data.token);
+                // Navigate based on role
+                if (response.data.user.role === 'admin') {
+                    navigate('/admin/dashboard');
+                } else {
+                    navigate('/customer/dashboard');
+                }
             } else {
                 setError(response.message || 'Sign up failed. Please try again.');
             }

@@ -2,16 +2,17 @@ import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Briefcase, CreditCard, Headphones, Settings, LogOut, Mail, Globe, BarChart3, Shield, ChevronDown, ChevronRight, Lock } from 'lucide-react';
 import { useState } from 'react';
 import { useCustomer } from './method';
-import { authApi } from '../../utils/api';
+import { useAuth } from '../../contexts/AuthContext';
 import './style.scss';
 
 export default function CustomerLayout() {
     const { menuItems, activeMenu, handleMenuClick } = useCustomer();
     const [expandedMenus, setExpandedMenus] = useState<Set<string>>(new Set());
     const navigate = useNavigate();
+    const { logout } = useAuth();
 
     const handleSignOut = () => {
-        authApi.signOut();
+        logout();
         navigate('/signin');
     };
 

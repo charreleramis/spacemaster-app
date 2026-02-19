@@ -1,7 +1,8 @@
 // Methods and logic for SignIn page
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authApi, getStoredUser } from '../../utils/api';
+import { authApi } from '../../utils/api';
+import { useAuth } from '../../contexts/AuthContext';
 
 export const useSignIn = () => {
     const [email, setEmail] = useState('');
@@ -10,6 +11,7 @@ export const useSignIn = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -22,10 +24,11 @@ export const useSignIn = () => {
                 password,
             });
 
-            if (response.success) {
-                const user = getStoredUser();
+            if (response.success && response.data) {
+                // Update auth context
+                login(response.data.user, response.data.token);
                 // Navigate based on user role
-                if (user?.role === 'admin') {
+                if (response.data.user.role === 'admin') {
                     navigate('/admin/dashboard');
                 } else {
                     navigate('/customer/dashboard');

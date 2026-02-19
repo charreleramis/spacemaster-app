@@ -1,5 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 import Navbar from './components/Navbar';
+import ProtectedRoute from './components/ProtectedRoute';
+import PublicRoute from './components/PublicRoute';
 import Home from './pages/Home';
 import SignIn from './pages/sign-in';
 import SignUp from './pages/sign-up';
@@ -35,9 +38,21 @@ function AppContent() {
 						<Footer />
 					</>
 				} />
-				<Route path="/signin" element={<SignIn />} />
-				<Route path="/signup" element={<SignUp />} />
-				<Route path="/customer" element={<CustomerLayout />}>
+				<Route path="/signin" element={
+					<PublicRoute>
+						<SignIn />
+					</PublicRoute>
+				} />
+				<Route path="/signup" element={
+					<PublicRoute>
+						<SignUp />
+					</PublicRoute>
+				} />
+				<Route path="/customer" element={
+					<ProtectedRoute requiredRole="customer">
+						<CustomerLayout />
+					</ProtectedRoute>
+				}>
 					<Route index element={<Navigate to="/customer/dashboard" replace />} />
 					<Route path="dashboard" element={<Dashboard />} />
 					<Route path="service" element={<Service />} />
@@ -47,7 +62,11 @@ function AppContent() {
 					<Route path="support" element={<Support />} />
 					<Route path="settings" element={<Settings />} />
 				</Route>
-				<Route path="/admin" element={<AdminLayout />}>
+				<Route path="/admin" element={
+					<ProtectedRoute requiredRole="admin">
+						<AdminLayout />
+					</ProtectedRoute>
+				}>
 					<Route index element={<Navigate to="/admin/dashboard" replace />} />
 					<Route path="dashboard" element={<AdminDashboard />} />
 					<Route path="orders" element={<AdminOrders />} />
@@ -61,7 +80,9 @@ function AppContent() {
 function App() {
 	return (
 		<Router>
-			<AppContent />
+			<AuthProvider>
+				<AppContent />
+			</AuthProvider>
 		</Router>
 	);
 }

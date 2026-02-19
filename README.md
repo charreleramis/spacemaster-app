@@ -43,7 +43,7 @@ Or for development with auto-reload:
 npm run server:dev
 ```
 
-The backend server will run on `http://localhost:5000`
+The backend server will run on `http://localhost:5001`
 
 **Terminal 2: Start Frontend Development Server**
 
@@ -68,7 +68,7 @@ npm run dev
 
 ## Verify Everything is Working
 
-1. **Backend**: Open `http://localhost:5000/api/health` in your browser. You should see:
+1. **Backend**: Open `http://localhost:5001/api/health` in your browser. You should see:
    ```json
    {"status":"OK","message":"Server is running"}
    ```
@@ -91,11 +91,11 @@ npm run dev
 
 ## Environment Variables
 
-The frontend uses Vite proxy to forward `/api` requests to the backend server at `http://localhost:5000`.
+The frontend uses Vite proxy to forward `/api` requests to the backend server at `http://localhost:5001`.
 
 If you need to change the API URL, create a `.env` file in the root directory:
 ```
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:5001/api
 ```
 
 ## MongoDB
