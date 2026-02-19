@@ -11,6 +11,11 @@ export interface Service {
     status: ServiceStatus;
     requestedDate: string;
     amount: number;
+    numberOfScreens?: number;
+    addBranding?: boolean;
+    brandText?: string;
+    brandLogo?: string;
+    screenImages?: Array<{ preview: string }>;
 }
 
 export const useService = () => {

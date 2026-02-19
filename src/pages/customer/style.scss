@@ -117,7 +117,7 @@
 
 .customer-page-description {
     color: #6b7280; // gray-500
-    margin-bottom: 0;
+    margin-bottom: 10px;
 }
 
 // Subscription page styles
@@ -955,5 +955,15 @@
     p {
         color: #6b7280; // gray-500
         font-size: 1rem;
+    }
+}
+
+// Hide scrollbar but keep scrolling functionality
+.hide-scrollbar {
+    scrollbar-width: none; // Firefox
+    -ms-overflow-style: none; // IE and Edge
+    
+    &::-webkit-scrollbar {
+        display: none; // Chrome, Safari, Opera
     }
 }

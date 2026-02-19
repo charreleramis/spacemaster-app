@@ -2,6 +2,7 @@ import { Eye, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useService } from './method';
 import { GhostButton, PrimaryButton } from '../../../components/Buttons';
+import { Table } from '../../../components/Table';
 import '../style.scss';
 
 export default function Service() {
@@ -9,7 +10,6 @@ export default function Service() {
     const {
         services,
         getStatusColor,
-        getServiceTypeLabel,
         formatDate,
         formatAmount,
     } = useService();
@@ -30,58 +30,57 @@ export default function Service() {
             </div>
 
             {/* Services Table */}
-            <div className="customer-service-table-container">
-                <table className="customer-service-table">
-                    <thead>
-                        <tr>
-                            <th>Service Name</th>
-                            <th>Type</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th>Requested Date</th>
-                            <th>Amount</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {services.length === 0 ? (
-                            <tr>
-                                <td colSpan={7} className="customer-service-empty">
-                                    No services found. Request a service to get started.
-                                </td>
-                            </tr>
-                        ) : (
-                            services.map((service) => (
-                                <tr key={service.id}>
-                                    <td className="customer-service-name">{service.name}</td>
-                                    <td>
-                                        <span className="customer-service-type-badge">
-                                            {getServiceTypeLabel(service.type)}
-                                        </span>
-                                    </td>
-                                    <td className="customer-service-description">{service.description}</td>
-                                    <td>
-                                        <span className={`customer-service-badge ${getStatusColor(service.status)}`}>
-                                            {service.status.charAt(0).toUpperCase() + service.status.slice(1)}
-                                        </span>
-                                    </td>
-                                    <td className="customer-service-date">{formatDate(service.requestedDate)}</td>
-                                    <td className="customer-service-date">{formatAmount(service.amount)}</td>
-                                    <td>
-                                        <GhostButton
-                                            onClick={() => navigate(`/customer/service/${service.id}`)}
-                                            className="customer-service-view-button"
-                                        >
-                                            <Eye className="size-4" />
-                                            View
-                                        </GhostButton>
-                                    </td>
-                                </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
-            </div>
+            <Table
+                columns={[
+                    {
+                        key: 'name',
+                        header: 'Service Name',
+                        className: 'customer-service-name',
+                    },
+                    {
+                        key: 'description',
+                        header: 'Description',
+                        className: 'customer-service-description',
+                    },
+                    {
+                        key: 'status',
+                        header: 'Status',
+                        render: (service) => (
+                            <span className={`customer-service-badge ${getStatusColor(service.status)}`}>
+                                {service.status.charAt(0).toUpperCase() + service.status.slice(1)}
+                            </span>
+                        ),
+                    },
+                    {
+                        key: 'requestedDate',
+                        header: 'Requested Date',
+                        className: 'customer-service-date',
+                        render: (service) => formatDate(service.requestedDate),
+                    },
+                    {
+                        key: 'amount',
+                        header: 'Amount',
+                        className: 'customer-service-date',
+                        render: (service) => formatAmount(service.amount),
+                    },
+                    {
+                        key: 'action',
+                        header: 'Action',
+                        render: (service) => (
+                            <GhostButton
+                                onClick={() => navigate(`/customer/service/${service.id}`)}
+                                className="customer-service-view-button"
+                            >
+                                <Eye className="size-4" />
+                                View
+                            </GhostButton>
+                        ),
+                    },
+                ]}
+                data={services}
+                emptyMessage="No services found. Request a service to get started."
+                itemsPerPage={10}
+            />
         </>
     );
 }

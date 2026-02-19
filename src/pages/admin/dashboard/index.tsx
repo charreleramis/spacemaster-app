@@ -1,5 +1,6 @@
 import { Users, DollarSign, CheckCircle, Clock, Briefcase, User } from 'lucide-react';
 import { useAdminDashboard } from './method';
+import { Table } from '../../../components/Table';
 import '../../customer/style.scss';
 
 export default function AdminDashboard() {
@@ -153,48 +154,53 @@ export default function AdminDashboard() {
                                 <h2 className="customer-service-detail-card-title">All Orders</h2>
                             </div>
                             <div className="customer-service-detail-card-body" style={{ padding: 0 }}>
-                                <div className="customer-service-table-container">
-                                    <table className="customer-service-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Service Name</th>
-                                                <th>Type</th>
-                                                <th>Description</th>
-                                                <th>Status</th>
-                                                <th>Requested Date</th>
-                                                <th>Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {orders.length === 0 ? (
-                                                <tr>
-                                                    <td colSpan={6} className="customer-service-empty">
-                                                        No orders found.
-                                                    </td>
-                                                </tr>
-                                            ) : (
-                                                orders.map((order) => (
-                                                    <tr key={order.id}>
-                                                        <td className="customer-service-name">{order.name}</td>
-                                                        <td>
-                                                            <span className="customer-service-type-badge">
-                                                                {getServiceTypeLabel(order.type)}
-                                                            </span>
-                                                        </td>
-                                                        <td className="customer-service-description">{order.description}</td>
-                                                        <td>
-                                                            <span className={`customer-service-badge ${order.status === 'pending' ? 'text-yellow-600 bg-yellow-100' : order.status === 'approved' ? 'text-blue-600 bg-blue-100' : order.status === 'delivered' ? 'text-green-600 bg-green-100' : 'text-orange-600 bg-orange-100'}`}>
-                                                                {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                                                            </span>
-                                                        </td>
-                                                        <td className="customer-service-date">{formatDate(order.requestedDate)}</td>
-                                                        <td className="customer-service-date">{formatAmount(order.amount)}</td>
-                                                    </tr>
-                                                ))
-                                            )}
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <Table
+                                    columns={[
+                                        {
+                                            key: 'name',
+                                            header: 'Service Name',
+                                            className: 'customer-service-name',
+                                        },
+                                        {
+                                            key: 'type',
+                                            header: 'Type',
+                                            render: (order) => (
+                                                <span className="customer-service-type-badge">
+                                                    {getServiceTypeLabel(order.type)}
+                                                </span>
+                                            ),
+                                        },
+                                        {
+                                            key: 'description',
+                                            header: 'Description',
+                                            className: 'customer-service-description',
+                                        },
+                                        {
+                                            key: 'status',
+                                            header: 'Status',
+                                            render: (order) => (
+                                                <span className={`customer-service-badge ${order.status === 'pending' ? 'text-yellow-600 bg-yellow-100' : order.status === 'approved' ? 'text-blue-600 bg-blue-100' : order.status === 'delivered' ? 'text-green-600 bg-green-100' : 'text-orange-600 bg-orange-100'}`}>
+                                                    {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                                                </span>
+                                            ),
+                                        },
+                                        {
+                                            key: 'requestedDate',
+                                            header: 'Requested Date',
+                                            className: 'customer-service-date',
+                                            render: (order) => formatDate(order.requestedDate),
+                                        },
+                                        {
+                                            key: 'amount',
+                                            header: 'Amount',
+                                            className: 'customer-service-date',
+                                            render: (order) => formatAmount(order.amount),
+                                        },
+                                    ]}
+                                    data={orders}
+                                    emptyMessage="No orders found."
+                                    itemsPerPage={10}
+                                />
                             </div>
                         </div>
                     )}
@@ -205,38 +211,40 @@ export default function AdminDashboard() {
                                 <h2 className="customer-service-detail-card-title">Registered Users</h2>
                             </div>
                             <div className="customer-service-detail-card-body" style={{ padding: 0 }}>
-                                <div className="customer-service-table-container">
-                                    <table className="customer-service-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Registered Date</th>
-                                                <th>Orders Count</th>
-                                                <th>Total Spent</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {users.length === 0 ? (
-                                                <tr>
-                                                    <td colSpan={5} className="customer-service-empty">
-                                                        No users found.
-                                                    </td>
-                                                </tr>
-                                            ) : (
-                                                users.map((user) => (
-                                                    <tr key={user.id}>
-                                                        <td className="customer-service-name">{user.name}</td>
-                                                        <td className="customer-service-description">{user.email}</td>
-                                                        <td className="customer-service-date">{formatDate(user.registeredDate)}</td>
-                                                        <td className="customer-service-date">{user.ordersCount}</td>
-                                                        <td className="customer-service-date">{formatAmount(user.totalSpent)}</td>
-                                                    </tr>
-                                                ))
-                                            )}
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <Table
+                                    columns={[
+                                        {
+                                            key: 'name',
+                                            header: 'Name',
+                                            className: 'customer-service-name',
+                                        },
+                                        {
+                                            key: 'email',
+                                            header: 'Email',
+                                            className: 'customer-service-description',
+                                        },
+                                        {
+                                            key: 'registeredDate',
+                                            header: 'Registered Date',
+                                            className: 'customer-service-date',
+                                            render: (user) => formatDate(user.registeredDate),
+                                        },
+                                        {
+                                            key: 'ordersCount',
+                                            header: 'Orders Count',
+                                            className: 'customer-service-date',
+                                        },
+                                        {
+                                            key: 'totalSpent',
+                                            header: 'Total Spent',
+                                            className: 'customer-service-date',
+                                            render: (user) => formatAmount(user.totalSpent),
+                                        },
+                                    ]}
+                                    data={users}
+                                    emptyMessage="No users found."
+                                    itemsPerPage={10}
+                                />
                             </div>
                         </div>
                     )}
@@ -247,42 +255,44 @@ export default function AdminDashboard() {
                                 <h2 className="customer-service-detail-card-title">Pending Orders</h2>
                             </div>
                             <div className="customer-service-detail-card-body" style={{ padding: 0 }}>
-                                <div className="customer-service-table-container">
-                                    <table className="customer-service-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Service Name</th>
-                                                <th>Type</th>
-                                                <th>Description</th>
-                                                <th>Requested Date</th>
-                                                <th>Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {pendingOrdersList.length === 0 ? (
-                                                <tr>
-                                                    <td colSpan={5} className="customer-service-empty">
-                                                        No pending orders found.
-                                                    </td>
-                                                </tr>
-                                            ) : (
-                                                pendingOrdersList.map((order) => (
-                                                    <tr key={order.id}>
-                                                        <td className="customer-service-name">{order.name}</td>
-                                                        <td>
-                                                            <span className="customer-service-type-badge">
-                                                                {getServiceTypeLabel(order.type)}
-                                                            </span>
-                                                        </td>
-                                                        <td className="customer-service-description">{order.description}</td>
-                                                        <td className="customer-service-date">{formatDate(order.requestedDate)}</td>
-                                                        <td className="customer-service-date">{formatAmount(order.amount)}</td>
-                                                    </tr>
-                                                ))
-                                            )}
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <Table
+                                    columns={[
+                                        {
+                                            key: 'name',
+                                            header: 'Service Name',
+                                            className: 'customer-service-name',
+                                        },
+                                        {
+                                            key: 'type',
+                                            header: 'Type',
+                                            render: (order) => (
+                                                <span className="customer-service-type-badge">
+                                                    {getServiceTypeLabel(order.type)}
+                                                </span>
+                                            ),
+                                        },
+                                        {
+                                            key: 'description',
+                                            header: 'Description',
+                                            className: 'customer-service-description',
+                                        },
+                                        {
+                                            key: 'requestedDate',
+                                            header: 'Requested Date',
+                                            className: 'customer-service-date',
+                                            render: (order) => formatDate(order.requestedDate),
+                                        },
+                                        {
+                                            key: 'amount',
+                                            header: 'Amount',
+                                            className: 'customer-service-date',
+                                            render: (order) => formatAmount(order.amount),
+                                        },
+                                    ]}
+                                    data={pendingOrdersList}
+                                    emptyMessage="No pending orders found."
+                                    itemsPerPage={10}
+                                />
                             </div>
                         </div>
                     )}
