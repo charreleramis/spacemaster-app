@@ -15,6 +15,7 @@ import Ads from './pages/customer/ads';
 import Invoice from './pages/customer/subscription';
 import Support from './pages/customer/support';
 import Settings from './pages/customer/settings';
+import TermsAndPolicy from './pages/customer/terms';
 import AdminLayout from './pages/admin';
 import AdminDashboard from './pages/admin/dashboard';
 import AdminOrders from './pages/admin/orders';
@@ -63,6 +64,7 @@ function AppContent() {
 					<Route path="subscription" element={<Invoice />} />
 					<Route path="support" element={<Support />} />
 					<Route path="settings" element={<Settings />} />
+					<Route path="terms" element={<TermsAndPolicy />} />
 				</Route>
 				<Route path="/admin" element={
 					<ProtectedRoute requiredRole="admin">

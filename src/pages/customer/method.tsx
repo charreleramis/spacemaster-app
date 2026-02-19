@@ -39,6 +39,7 @@ export const useCustomer = () => {
             ]
         },
         { id: 'settings', label: 'Settings', path: '/customer/settings', icon: 'Settings' },
+        { id: 'terms', label: 'Terms & Policy', path: '/customer/terms', icon: 'FileText' },
     ];
 
     const handleMenuClick = (path: string) => {
