@@ -1,41 +1,105 @@
-# Pixel.io - Digital Agency Website Template
+# Spacemaster App
 
-#### Preview
+A full-stack application with React frontend and Express.js backend.
 
- - [Demo](https://themewagon.github.io/pixel.io-reactjs/)
+## Prerequisites
 
-#### Download
- - [Download from ThemeWagon](https://themewagon.com/themes/pixel.io-reactjs/)
+- Node.js (v18 or higher)
+- npm or yarn
 
-## Getting Started
+## Project Structure
 
-1. Clone Repository
 ```
-git clone https://github.com/themewagon/pixel.io-reactjs.git
+spacemaster-app/
+├── server/          # Express.js backend API
+├── src/            # React frontend
+└── package.json    # Frontend dependencies
 ```
-2. Install Dependencies
+
+## Quick Setup
+
+### Install All Dependencies
+
+```bash
+npm run install:all
 ```
-npm i
+
+This will install dependencies for both frontend and backend.
+
+## Running the Application
+
+You need to run both the backend server and frontend development server. You can do this in two ways:
+
+### Option 1: Using Two Terminal Windows (Recommended)
+
+**Terminal 1: Start Backend Server**
+
+```bash
+npm run server
 ```
-3. Run the development server:
+
+Or for development with auto-reload:
+```bash
+npm run server:dev
+```
+
+The backend server will run on `http://localhost:5001`
+
+**Terminal 2: Start Frontend Development Server**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-## Author 
-```
-Design and code is completely written by PrebuiltUI and development team. 
+The frontend will run on `http://localhost:4200`
+
+### Option 2: Manual Commands
+
+**Terminal 1: Backend**
+```bash
+cd server
+npm start
 ```
 
-## License
+**Terminal 2: Frontend**
+```bash
+npm run dev
+```
 
- - Design and Code is Copyright &copy; <a href="https://prebuiltui.com/tailwind-templates?ref=pixel-forge" target="_blank">PrebuiltUI</a>
- - Licensed cover under [MIT]
- - Distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+## Verify Everything is Working
+
+1. **Backend**: Open `http://localhost:5001/api/health` in your browser. You should see:
+   ```json
+   {"status":"OK","message":"Server is running"}
+   ```
+
+2. **Frontend**: Open `http://localhost:4200` in your browser. You should see the home page.
+
+3. **Test Sign Up**: Navigate to `/signup` and create an account.
+
+4. **Test Sign In**: Navigate to `/signin` and sign in with your credentials.
+
+## API Endpoints
+
+- **POST** `/api/auth/signup` - Create new user account
+  - Body: `{ name, phone, email, password }`
+  
+- **POST** `/api/auth/signin` - Sign in user
+  - Body: `{ email, password }`
+  
+- **GET** `/api/health` - Health check
+
+## Environment Variables
+
+The frontend uses Vite proxy to forward `/api` requests to the backend server at `http://localhost:5001`.
+
+If you need to change the API URL, create a `.env` file in the root directory:
+```
+VITE_API_URL=http://localhost:5001/api
+```
+
+## MongoDB
+
+The server connects to MongoDB Atlas using the connection string in `server/config/database.js`.
+
+The database name is set to `spacemaster` in the connection configuration.

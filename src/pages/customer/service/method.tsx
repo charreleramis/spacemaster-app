@@ -10,7 +10,12 @@ export interface Service {
     description: string;
     status: ServiceStatus;
     requestedDate: string;
-    updatedDate: string;
+    amount: number;
+    numberOfScreens?: number;
+    addBranding?: boolean;
+    brandText?: string;
+    brandLogo?: string;
+    screenImages?: Array<{ preview: string }>;
 }
 
 export const useService = () => {
@@ -22,7 +27,7 @@ export const useService = () => {
             description: 'Brand identity design package',
             status: 'pending',
             requestedDate: '2024-01-15T10:30:00Z',
-            updatedDate: '2024-01-15T10:30:00Z',
+            amount: 500,
         },
         {
             id: '2',
@@ -31,7 +36,7 @@ export const useService = () => {
             description: 'Full-stack e-commerce platform',
             status: 'delivered',
             requestedDate: '2024-01-10T09:15:00Z',
-            updatedDate: '2024-01-20T14:30:00Z',
+            amount: 5000,
         },
         {
             id: '3',
@@ -40,7 +45,7 @@ export const useService = () => {
             description: 'iOS and Android mobile application',
             status: 'hold',
             requestedDate: '2024-01-12T11:20:00Z',
-            updatedDate: '2024-01-18T16:45:00Z',
+            amount: 8000,
         },
         {
             id: '4',
@@ -49,7 +54,7 @@ export const useService = () => {
             description: 'User interface and experience design',
             status: 'delivered',
             requestedDate: '2024-01-08T08:00:00Z',
-            updatedDate: '2024-01-16T12:00:00Z',
+            amount: 1200,
         },
         {
             id: '5',
@@ -58,7 +63,7 @@ export const useService = () => {
             description: 'Personal portfolio website',
             status: 'pending',
             requestedDate: '2024-01-14T13:30:00Z',
-            updatedDate: '2024-01-14T13:30:00Z',
+            amount: 800,
         },
         {
             id: '6',
@@ -67,7 +72,7 @@ export const useService = () => {
             description: 'Custom web application development',
             status: 'pending',
             requestedDate: '2024-01-13T10:00:00Z',
-            updatedDate: '2024-01-13T10:00:00Z',
+            amount: 6000,
         },
     ]);
 
@@ -89,13 +94,13 @@ export const useService = () => {
     const getStatusColor = (status: ServiceStatus) => {
         switch (status) {
             case 'pending':
-                return 'text-yellow-400 bg-yellow-400/20';
+                return 'text-yellow-600 bg-yellow-100';
             case 'delivered':
-                return 'text-green-400 bg-green-400/20';
+                return 'text-green-600 bg-green-100';
             case 'hold':
-                return 'text-orange-400 bg-orange-400/20';
+                return 'text-orange-600 bg-orange-100';
             default:
-                return 'text-gray-400 bg-gray-400/20';
+                return 'text-gray-600 bg-gray-100';
         }
     };
 
@@ -121,6 +126,13 @@ export const useService = () => {
         });
     };
 
+    const formatAmount = (amount: number) => {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        }).format(amount);
+    };
+
     const getServiceById = (id: string): Service | undefined => {
         return services.find((service) => service.id === id);
     };
@@ -131,6 +143,7 @@ export const useService = () => {
         getStatusColor,
         getServiceTypeLabel,
         formatDate,
+        formatAmount,
         getServiceById,
     };
 };

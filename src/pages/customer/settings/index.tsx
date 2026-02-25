@@ -1,5 +1,6 @@
 import { UserIcon, PhoneIcon, MailIcon, LockIcon } from 'lucide-react';
 import { useSettings } from './method';
+import { PrimaryButton } from '../../../components/Buttons';
 import '../style.scss';
 
 export default function Settings() {
@@ -133,9 +134,9 @@ export default function Settings() {
 
                         {/* Single Update Button */}
                         <div className="customer-settings-button-container">
-                            <button type="submit" className="customer-settings-button">
+                            <PrimaryButton type="submit" className="customer-settings-button">
                                 Update Settings
-                            </button>
+                            </PrimaryButton>
                         </div>
                     </form>
                 </div>

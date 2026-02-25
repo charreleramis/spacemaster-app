@@ -1,7 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Calendar, Clock, Package, FileText } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useService } from './method';
 import { GhostButton } from '../../../components/Buttons';
+import { OrderForm } from './components/OrderForm';
 import '../style.scss';
 
 export default function ServiceDetail() {
@@ -9,9 +10,8 @@ export default function ServiceDetail() {
     const navigate = useNavigate();
     const {
         getServiceById,
-        getStatusColor,
         getServiceTypeLabel,
-        formatDate,
+        formatAmount,
     } = useService();
 
     const service = id ? getServiceById(id) : undefined;
@@ -31,17 +31,6 @@ export default function ServiceDetail() {
         );
     }
 
-    const formatDateTime = (dateString: string) => {
-        const date = new Date(dateString);
-        return date.toLocaleString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-        });
-    };
-
     return (
         <div className="customer-service-detail">
             <div className="customer-service-detail-header">
@@ -56,94 +45,29 @@ export default function ServiceDetail() {
             </div>
 
             <div className="customer-service-detail-content">
-                {/* Main Info Card */}
+                {/* Order Form in View Mode */}
                 <div className="customer-service-detail-card">
                     <div className="customer-service-detail-card-header">
-                        <h2 className="customer-service-detail-card-title">Service Information</h2>
+                        <h2 className="customer-service-detail-card-title">Order Details</h2>
                     </div>
                     <div className="customer-service-detail-card-body">
-                        <div className="customer-service-detail-info-grid">
-                            <div className="customer-service-detail-info-item">
-                                <div className="customer-service-detail-info-label">
-                                    <Package className="size-4" />
-                                    Service Type
-                                </div>
-                                <div className="customer-service-detail-info-value">
-                                    <span className="customer-service-type-badge">
-                                        {getServiceTypeLabel(service.type)}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div className="customer-service-detail-info-item">
-                                <div className="customer-service-detail-info-label">
-                                    <FileText className="size-4" />
-                                    Status
-                                </div>
-                                <div className="customer-service-detail-info-value">
-                                    <span className={`customer-service-badge ${getStatusColor(service.status)}`}>
-                                        {service.status.charAt(0).toUpperCase() + service.status.slice(1)}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div className="customer-service-detail-info-item">
-                                <div className="customer-service-detail-info-label">
-                                    <Calendar className="size-4" />
-                                    Requested Date
-                                </div>
-                                <div className="customer-service-detail-info-value">
-                                    {formatDateTime(service.requestedDate)}
-                                </div>
-                            </div>
-
-                            <div className="customer-service-detail-info-item">
-                                <div className="customer-service-detail-info-label">
-                                    <Clock className="size-4" />
-                                    Last Updated
-                                </div>
-                                <div className="customer-service-detail-info-value">
-                                    {formatDateTime(service.updatedDate)}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Description Card */}
-                <div className="customer-service-detail-card">
-                    <div className="customer-service-detail-card-header">
-                        <h2 className="customer-service-detail-card-title">Description</h2>
-                    </div>
-                    <div className="customer-service-detail-card-body">
-                        <p className="customer-service-detail-description">{service.description}</p>
-                    </div>
-                </div>
-
-                {/* Additional Details Card */}
-                <div className="customer-service-detail-card">
-                    <div className="customer-service-detail-card-header">
-                        <h2 className="customer-service-detail-card-title">Additional Details</h2>
-                    </div>
-                    <div className="customer-service-detail-card-body">
-                        <div className="customer-service-detail-additional">
-                            <div className="customer-service-detail-additional-item">
-                                <span className="customer-service-detail-additional-label">Service ID:</span>
-                                <span className="customer-service-detail-additional-value">{service.id}</span>
-                            </div>
-                            <div className="customer-service-detail-additional-item">
-                                <span className="customer-service-detail-additional-label">Service Type:</span>
-                                <span className="customer-service-detail-additional-value">
-                                    {getServiceTypeLabel(service.type)}
-                                </span>
-                            </div>
-                            <div className="customer-service-detail-additional-item">
-                                <span className="customer-service-detail-additional-label">Current Status:</span>
-                                <span className="customer-service-detail-additional-value">
-                                    {service.status.charAt(0).toUpperCase() + service.status.slice(1)}
-                                </span>
-                            </div>
-                        </div>
+                        <OrderForm
+                            mode="view"
+                            data={{
+                                serviceName: service.name,
+                                serviceType: service.type,
+                                numberOfScreens: service.numberOfScreens,
+                                numberOfScreensInput: service.numberOfScreens?.toString() || '',
+                                serviceDescription: service.description,
+                                serviceAmount: service.amount,
+                                addBranding: service.addBranding || false,
+                                brandText: service.brandText,
+                                brandLogoPreview: service.brandLogo,
+                                screenImages: service.screenImages?.map(img => ({ file: null, preview: img.preview })) || [],
+                            }}
+                            getServiceTypeLabel={getServiceTypeLabel}
+                            formatAmount={formatAmount}
+                        />
                     </div>
                 </div>
             </div>

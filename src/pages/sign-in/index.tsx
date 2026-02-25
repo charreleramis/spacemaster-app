@@ -12,6 +12,8 @@ export default function SignIn() {
         password,
         setPassword,
         showPassword,
+        isLoading,
+        error,
         handleSubmit,
         togglePasswordVisibility,
     } = useSignIn();
@@ -112,9 +114,27 @@ export default function SignIn() {
                             </Link>
                         </div>
 
+                        {/* Error message */}
+                        {error && (
+                            <div style={{
+                                padding: '0.75rem',
+                                backgroundColor: '#fee2e2',
+                                border: '1px solid #fecaca',
+                                borderRadius: '0.5rem',
+                                color: '#991b1b',
+                                fontSize: '0.875rem'
+                            }}>
+                                {error}
+                            </div>
+                        )}
+
                         {/* Submit button */}
-                        <PrimaryButton type="submit" className={signInStyles.submitButton}>
-                            Sign in
+                        <PrimaryButton 
+                            type="submit" 
+                            className={signInStyles.submitButton}
+                            disabled={isLoading}
+                        >
+                            {isLoading ? 'Signing in...' : 'Sign in'}
                         </PrimaryButton>
                     </form>
 

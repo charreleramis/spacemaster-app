@@ -1,6 +1,8 @@
-import { Plus, X, Image as ImageIcon, Trash2 } from 'lucide-react';
+import { Plus, Image as ImageIcon, Trash2 } from 'lucide-react';
 import { useSupport } from './method';
 import { PrimaryButton } from '../../../components/Buttons';
+import { Modal } from '../../../components/Modal';
+import { Table } from '../../../components/Table';
 import '../style.scss';
 
 export default function Support() {
@@ -37,63 +39,52 @@ export default function Support() {
                 </PrimaryButton>
             </div>
 
-            <div className="customer-support-table-container">
-                <table className="customer-support-table">
-                    <thead>
-                        <tr>
-                            <th>Subject</th>
-                            <th>Status</th>
-                            <th>Priority</th>
-                            <th>Created</th>
-                            <th>Last Updated</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {tickets.length === 0 ? (
-                            <tr>
-                                <td colSpan={5} className="customer-support-empty">
-                                    No tickets found. Create your first ticket to get started.
-                                </td>
-                            </tr>
-                        ) : (
-                            tickets.map((ticket) => (
-                                <tr key={ticket.id}>
-                                    <td className="customer-support-subject">{ticket.subject}</td>
-                                    <td>
-                                        <span className={`customer-support-badge ${getStatusColor(ticket.status)}`}>
-                                            {ticket.status.charAt(0).toUpperCase() + ticket.status.slice(1)}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span className={`customer-support-badge ${getPriorityColor(ticket.priority)}`}>
-                                            {ticket.priority.charAt(0).toUpperCase() + ticket.priority.slice(1)}
-                                        </span>
-                                    </td>
-                                    <td className="customer-support-date">{formatDate(ticket.createdAt)}</td>
-                                    <td className="customer-support-date">{formatDate(ticket.updatedAt)}</td>
-                                </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
-            </div>
+            <Table
+                columns={[
+                    {
+                        key: 'subject',
+                        header: 'Subject',
+                        className: 'customer-support-subject',
+                    },
+                    {
+                        key: 'status',
+                        header: 'Status',
+                        render: (ticket) => (
+                            <span className={`customer-support-badge ${getStatusColor(ticket.status)}`}>
+                                {ticket.status.charAt(0).toUpperCase() + ticket.status.slice(1)}
+                            </span>
+                        ),
+                    },
+                    {
+                        key: 'priority',
+                        header: 'Priority',
+                        render: (ticket) => (
+                            <span className={`customer-support-badge ${getPriorityColor(ticket.priority)}`}>
+                                {ticket.priority.charAt(0).toUpperCase() + ticket.priority.slice(1)}
+                            </span>
+                        ),
+                    },
+                    {
+                        key: 'createdAt',
+                        header: 'Created',
+                        className: 'customer-support-date',
+                        render: (ticket) => formatDate(ticket.createdAt),
+                    },
+                    {
+                        key: 'updatedAt',
+                        header: 'Last Updated',
+                        className: 'customer-support-date',
+                        render: (ticket) => formatDate(ticket.updatedAt),
+                    },
+                ]}
+                data={tickets}
+                emptyMessage="No tickets found. Create your first ticket to get started."
+                itemsPerPage={10}
+            />
 
             {/* Modal */}
-            {isModalOpen && (
-                <div className="customer-support-modal-overlay" onClick={closeModal}>
-                    <div className="customer-support-modal" onClick={(e) => e.stopPropagation()}>
-                        <div className="customer-support-modal-header">
-                            <h2 className="customer-support-modal-title">Create New Ticket</h2>
-                            <button
-                                onClick={closeModal}
-                                className="customer-support-modal-close"
-                                aria-label="Close modal"
-                            >
-                                <X className="size-5" />
-                            </button>
-                        </div>
-
-                        <form onSubmit={handleSubmit} className="customer-support-modal-form">
+            <Modal isOpen={isModalOpen} onClose={closeModal} title="Create New Ticket">
+                <form onSubmit={handleSubmit} className="customer-support-modal-form">
                             <div className="customer-support-modal-field">
                                 <label htmlFor="subject" className="customer-support-modal-label">
                                     Subject
@@ -172,9 +163,7 @@ export default function Support() {
                                 </PrimaryButton>
                             </div>
                         </form>
-                    </div>
-                </div>
-            )}
+            </Modal>
         </>
     );
 }
