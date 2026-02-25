@@ -1,105 +1,65 @@
-# Spacemaster App
+# Space Master
 
-A full-stack application with React frontend and Express.js backend.
+**Space Master** helps businesses grow through thoughtful digital design, development, and strategy. Whether you’re a startup, a growing team, or an established brand, we focus on clear planning, high-quality execution, and results you can measure.
 
-## Prerequisites
+---
 
-- Node.js (v18 or higher)
-- npm or yarn
+## Purpose
 
-## Project Structure
+We exist to take the guesswork out of going digital. Many companies have great ideas but lack the right mix of strategy, design, and technical execution. Space Master brings those together so you can launch products and campaigns that look professional, work smoothly, and support your growth goals.
 
-```
-spacemaster-app/
-├── server/          # Express.js backend API
-├── src/            # React frontend
-└── package.json    # Frontend dependencies
-```
+---
 
-## Quick Setup
+## Who It’s For
 
-### Install All Dependencies
+- **Startups** — Get a solid digital presence and avoid costly mistakes early on.
+- **Growing businesses** — Scale your brand and operations with clear processes and support.
+- **Established brands** — Improve what you already have and add new digital experiences.
 
-```bash
-npm run install:all
-```
+---
 
-This will install dependencies for both frontend and backend.
+## What You Can Do
 
-## Running the Application
+### Explore the public site
 
-You need to run both the backend server and frontend development server. You can do this in two ways:
+- **Home** — See what we offer and how we work.
+- **Services** — Discovery & planning, design & development, and launch & growth.
+- **Pricing** — Transparent plans (Starter, Growth, Scale) so you can choose what fits.
+- **FAQ** — Answers to common questions about working with us.
 
-### Option 1: Using Two Terminal Windows (Recommended)
+### Create an account
 
-**Terminal 1: Start Backend Server**
+- **Sign up** — Create your account in a few steps.
+- **Sign in** — Secure access to your Space Master dashboard.
 
-```bash
-npm run server
-```
+### Use your customer portal
 
-Or for development with auto-reload:
-```bash
-npm run server:dev
-```
+After signing in, you get your own space to:
 
-The backend server will run on `http://localhost:5001`
+- **Dashboard** — Overview of your account and activity.
+- **Service** — Manage and track your projects and requests.
+- **Ads** — Work with your ad campaigns and creative.
+- **Invoice** — View and manage your subscription and invoices.
+- **Support** — Get help and contact the team when you need it.
+- **Settings** — Update your profile and preferences.
+- **Terms & Policy** — Read our terms and policies in one place.
 
-**Terminal 2: Start Frontend Development Server**
+We’re also adding more over time (e.g. email campaigns and website tools), so you’ll see new options as they become available.
 
-```bash
-npm run dev
-```
+---
 
-The frontend will run on `http://localhost:4200`
+## Why Choose Space Master
 
-### Option 2: Manual Commands
+- **Strategy first** — We start by understanding your goals and audience, then build a clear plan.
+- **Design and development** — From concept to code, we focus on quality and usability.
+- **Launch and growth** — We don’t stop at launch; we help you optimize and grow.
+- **Simple pricing** — Clear plans so you know what you’re paying for.
+- **Dedicated support** — Get help when you need it, in a way that fits your plan.
 
-**Terminal 1: Backend**
-```bash
-cd server
-npm start
-```
+---
 
-**Terminal 2: Frontend**
-```bash
-npm run dev
-```
+## Getting Started
 
-## Verify Everything is Working
+Visit the Space Master app, create an account, and explore. Use the public pages to learn about services and pricing, then sign in to access your customer portal and manage your projects and account.
 
-1. **Backend**: Open `http://localhost:5001/api/health` in your browser. You should see:
-   ```json
-   {"status":"OK","message":"Server is running"}
-   ```
-
-2. **Frontend**: Open `http://localhost:4200` in your browser. You should see the home page.
-
-3. **Test Sign Up**: Navigate to `/signup` and create an account.
-
-4. **Test Sign In**: Navigate to `/signin` and sign in with your credentials.
-
-## API Endpoints
-
-- **POST** `/api/auth/signup` - Create new user account
-  - Body: `{ name, phone, email, password }`
-  
-- **POST** `/api/auth/signin` - Sign in user
-  - Body: `{ email, password }`
-  
-- **GET** `/api/health` - Health check
-
-## Environment Variables
-
-The frontend uses Vite proxy to forward `/api` requests to the backend server at `http://localhost:5001`.
-
-If you need to change the API URL, create a `.env` file in the root directory:
-```
-VITE_API_URL=http://localhost:5001/api
-```
-
-## MongoDB
-
-The server connects to MongoDB Atlas using the connection string in `server/config/database.js`.
-
-The database name is set to `spacemaster` in the connection configuration.
+If you have questions or want to discuss your needs, reach out through the Support section once you’re signed in, or use the contact options on the site.
